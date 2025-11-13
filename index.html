@@ -26,7 +26,6 @@
     .explain{font-size:0.95rem;color:#222;margin-top:6px}
     footer{margin-top:18px;font-size:0.86rem;color:#555}
     .small{font-size:0.86rem;color:#444}
-    .note{background:#fffbe6;border-left:4px solid #ffdf7a;padding:10px;border-radius:4px;margin-bottom:12px}
     code{background:#f6f8fa;padding:2px 6px;border-radius:4px;font-family:Consolas,monospace}
   </style>
 </head>
@@ -148,14 +147,12 @@
     <div id="feedback"></div>
 
     <footer>
-      <div class="small">This single-file quiz randomises the order of the multiple-choice options each time the page is loaded while keeping question order constant so you can resume where you left off.</div>
+      <div class="small">Designed for advanced practice in article usage.</div>
     </footer>
   </form>
 
   <script>
-    // possible options
     const OPTIONS = ["the","a","an","nothing"];
-    // correct answers with concise explanations
     const ANSWERS = {
       q1: {ans:"a", expl:"'a paper' emphasises one (new) paper among others; indefinite article fits because it's newly published and non-specific."},
       q2: {ans:"an", expl:"'an intermediary' — 'intermediary' begins with a vowel sound; use 'an' before vowel sounds."},
@@ -179,7 +176,6 @@
       q20: {ans:"the", expl:"'the silence' refers to a particular silence in that setting; definite article is appropriate."}
     };
 
-    // Shuffle helper
     function shuffle(arr) {
       const a = arr.slice();
       for (let i = a.length -1; i>0; i--) {
@@ -189,7 +185,6 @@
       return a;
     }
 
-    // Render choices with randomised order
     function renderChoices() {
       document.querySelectorAll('.question').forEach(q => {
         const id = q.dataset.id;
@@ -210,7 +205,6 @@
           lbl.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lbl.click(); }});
           cont.appendChild(lbl);
         });
-        // restore saved choice if present
         const saved = localStorage.getItem('articles-'+id);
         if (saved) {
           const inputToSelect = cont.querySelector('input[value="'+saved+'"]');
@@ -283,7 +277,7 @@
       const summary = document.createElement('div');
       summary.className = 'small';
       summary.style.marginTop = '10px';
-      summary.textContent = 'Score: '+score+' / '+Object.keys(ANSWERS).length + ' — not all questions require the same type of article reasoning.';
+      summary.textContent = 'Score: '+score+' / '+Object.keys(ANSWERS).length;
       fb.prepend(summary);
       fb.scrollIntoView({behavior:'smooth'});
     }
