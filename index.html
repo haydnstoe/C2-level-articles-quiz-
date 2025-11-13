@@ -8,7 +8,6 @@
     :root{font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.5;color:#111}
     body{max-width:980px;margin:28px auto;padding:22px;background:#fff;border:1px solid #e6e6e6;border-radius:10px}
     header{display:flex;gap:18px;align-items:center}
-    header img{max-height:140px;border:1px solid #ddd;padding:6px;background:#fafafa;object-fit:contain}
     h3{font-size:1.25rem;margin:0}
     p.intro{margin:12px 0 18px;color:#333}
     form{margin-top:6px}
@@ -33,18 +32,10 @@
 </head>
 <body>
   <header>
-    <img src="QJwNQ6VTe4tJwgCJSALe4.png" alt="Introductory screenshot" />
     <div>
       <h3>Articles Cloze Test</h3>
-      <p class="small">C2 British English practice: choose the correct article (the, a, an, or nothing). Question order is fixed; answer option order is shuffled each refresh. Progress is saved locally.</p>
     </div>
   </header>
-
-  <p class="intro">Complete each sentence by selecting the correct article: <strong>the</strong>, <strong>a</strong>, <strong>an</strong>, or <strong>nothing</strong> (no article). If your choice is incorrect you will immediately receive the correct answer and a concise explanation of why it is correct.</p>
-
-  <div class="note">
-    <strong>Note</strong> — The image above was provided as an introduction. The items in the test span a variety of subjects (science, law, travel, arts, technology) to reflect advanced collocational and article use at C2 level.
-  </div>
 
   <form id="quiz" autocomplete="off" onsubmit="return false;">
     <!-- 20 fixed-order questions -->
@@ -180,7 +171,7 @@
       q12: {ans:"the", expl:"'the potential' refers to a specific potential previously under discussion (converting brownfield sites); use 'the'."},
       q13: {ans:"a", expl:"'a new protocol' — introduces one particular protocol among possible protocols; indefinite article required."},
       q14: {ans:"an", expl:"'an OBE' — OBE is pronounced with an initial vowel sound ('oh'), so 'an' is used."},
-      q15: {ans:"consensus", expl:"No article: 'reached consensus' is idiomatic without an article in this context."},
+      q15: {ans:"no", expl:"No article: 'reached consensus' is idiomatic without an article in this context."},
       q16: {ans:"an; a", expl:"First blank 'an egg' because 'egg' begins with a vowel sound; second blank 'a pinch' is the collocation."},
       q17: {ans:"the", expl:"'the time required' refers to a specific amount of time known or expected; definite article used."},
       q18: {ans:"the", expl:"'the idea' refers to a particular theoretical concept being discussed; use 'the'."},
@@ -188,8 +179,7 @@
       q20: {ans:"the", expl:"'the silence' refers to a particular silence in that setting; definite article is appropriate."}
     };
 
-    // normalise the stored keys for answers where multiple blanks present (q16)
-    // Render choices in random order for each question
+    // Shuffle helper
     function shuffle(arr) {
       const a = arr.slice();
       for (let i = a.length -1; i>0; i--) {
@@ -199,6 +189,7 @@
       return a;
     }
 
+    // Render choices with randomised order
     function renderChoices() {
       document.querySelectorAll('.question').forEach(q => {
         const id = q.dataset.id;
@@ -257,15 +248,12 @@
         const block = document.createElement('div');
         block.className = 'result';
         if (qid === 'q16') {
-          // special composite answer handling: expected stored as 'an; a'
           const expectedParts = expected.split(';').map(s=>s.trim());
-          // if saved contains semicolon it may have been saved as combined; otherwise compare single selection
           let correct = false;
           if (saved && saved.includes(';')) {
             const parts = saved.split(';').map(s=>s.trim());
             if (parts.length === 2 && parts[0] === expectedParts[0] && parts[1] === expectedParts[1]) correct = true;
           } else {
-            // in this implementation q16 has only one set of choices: we accept user's single selection if it matches the first expected (common case)
             if (saved === expectedParts[0]) correct = true;
           }
           if (correct) {
@@ -308,7 +296,6 @@
       document.getElementById('feedback').innerHTML = '';
     }
 
-    // accessibility: allow keyboard selection to trigger save
     document.addEventListener('change', e => {
       if (e.target && e.target.tagName === 'INPUT' && e.target.type === 'radio') {
         const lbl = e.target.parentElement;
