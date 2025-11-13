@@ -1,22 +1,315 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>Interactive Quiz</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Earl Grey Articles Cloze Test — C2 British English</title>
+  <style>
+    :root{font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.45;color:#111}
+    body{max-width:900px;margin:28px auto;padding:20px;background:#fff;border:1px solid #e6e6e6;border-radius:8px}
+    header{display:flex;gap:18px;align-items:center}
+    header img{max-height:140px;border:1px solid #ddd;padding:6px;background:#fafafa}
+    h1{font-size:1.25rem;margin:0}
+    p.intro{margin:12px 0 18px;color:#333}
+    form{margin-top:6px}
+    .question{padding:12px;border-radius:6px;background:#fbfbfb;border:1px solid #efefef;margin-bottom:12px;display:flex;flex-direction:column;gap:8px}
+    .qmeta{font-size:0.88rem;color:#666}
+    .choices{display:flex;gap:10px;flex-wrap:wrap}
+    .choice{background:#fff;border:1px solid #d0d7de;padding:8px 10px;border-radius:6px;cursor:pointer;user-select:none}
+    .choice input{display:none}
+    .choice.selected{border-color:#0b6efd;background:#eaf2ff}
+    .controls{display:flex;gap:10px;align-items:center;margin:16px 0}
+    button{background:#0b6efd;color:#fff;padding:10px 14px;border:0;border-radius:6px;cursor:pointer}
+    button.secondary{background:#f3f4f6;color:#111;border:1px solid #d1d5db}
+    .result{padding:12px;margin-top:10px;border-radius:6px}
+    .correct{background:#e6ffec;border:1px solid #b7f0c2;color:#0a7a2e}
+    .incorrect{background:#fff2f2;border:1px solid #f0b5b5;color:#9b2616}
+    .explain{font-size:0.95rem;color:#222;margin-top:6px}
+    footer{margin-top:18px;font-size:0.86rem;color:#555}
+    .small{font-size:0.86rem;color:#444}
+    .note{background:#fffbe6;border-left:4px solid #ffdf7a;padding:10px;border-radius:4px;margin-bottom:12px}
+    code{background:#f6f8fa;padding:2px 6px;border-radius:4px;font-family:Consolas,monospace}
+  </style>
 </head>
 <body>
-  <h1>HTML Basics Quiz</h1>
-  <form id="quiz-form">
+  <header>
+    <img src="QJwNQ6VTe4tJwgCJSALe4.png" alt="Twinings and Remsey Earl Grey tea packages" />
     <div>
-      <p>1. What does HTML stand for?</p>
-      <input type="radio" name="q1" value="a"> Home Tool Markup Language<br>
-      <input type="radio" name="q1" value="b"> HyperText Markup Language<br>
-      <input type="radio" name="q1" value="c"> Hyperlink Text Management Language<br>
+      <h1>Earl Grey Articles Cloze Test</h1>
+      <p class="small">C2 British English practice focused on use of articles (the, a, an, or no article). The screenshot above introduces the context for some items.</p>
     </div>
-    <button type="button" onclick="submitQuiz()">Submit</button>
-  </form>
-  <div id="result"></div>
+  </header>
 
-  <script src="script.js"></script>
+  <p class="intro">Complete each sentence by choosing the correct article: <strong>the</strong>, <strong>a</strong>, <strong>an</strong>, or <strong>nothing</strong> (leave the gap empty). If you choose incorrectly you will see the correct answer with a brief explanation. Your progress is saved locally so you can resume later.</p>
+
+  <div class="note">
+    <strong>How this works</strong> — Questions stay in the same order. For each question the order of the answer options is randomised every time you refresh this page. Select an option for each question and click <code>Check answers</code>.
+  </div>
+
+  <form id="quiz" autocomplete="off" onsubmit="return false;">
+    <!-- Questions: order fixed. -->
+    <div class="question" data-id="q1">
+      <div class="qmeta"><strong>1</strong> — She prefers ______ Earl Grey with a light bergamot flavour, not a more robust blend.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q2">
+      <div class="qmeta"><strong>2</strong> — ______ Twinings packet on the left is reputable for having a subtle citrus note.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q3">
+      <div class="qmeta"><strong>3</strong> — When serving guests, it helps to offer ______ choice between milk and lemon with their tea.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q4">
+      <div class="qmeta"><strong>4</strong> — He bought ______ box of Remsey because he wanted something stronger than his usual tea.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q5">
+      <div class="qmeta"><strong>5</strong> — The tasting notes mentioned ______ bergamot oil distilled from the rind of citrus fruit.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q6">
+      <div class="qmeta"><strong>6</strong> — In fine dining, adding ______ lemon slice to Earl Grey is considered unusual by some sommeliers.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q7">
+      <div class="qmeta"><strong>7</strong> — She described it as ______ quintessential British tea, served at formal occasions.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q8">
+      <div class="qmeta"><strong>8</strong> — After the meeting he brewed ______ cup and returned to his notes.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q9">
+      <div class="qmeta"><strong>9</strong> — We sampled ______ assortment of teas, but the Earl Grey stood out for its aroma.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q10">
+      <div class="qmeta"><strong>10</strong> — ______ addition of bergamot can transform a plain black tea into something distinctive.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q11">
+      <div class="qmeta"><strong>11</strong> — On the packet you’ll sometimes find ______ scale indicating strength or blend intensity.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q12">
+      <div class="qmeta"><strong>12</strong> — They argued that ______ concept of 'perfect cup' is subjective and culturally informed.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q13">
+      <div class="qmeta"><strong>13</strong> — Please put ______ kettle on and warm the pot before making tea.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q14">
+      <div class="qmeta"><strong>14</strong> — He found ______ unusual descriptor on the foreign box that he could not immediately translate.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q15">
+      <div class="qmeta"><strong>15</strong> — Many connoisseurs insist on ______ precise temperature for steeping delicate bergamot-infused teas.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q16">
+      <div class="qmeta"><strong>16</strong> — She took ______ sip, savoured the aroma and then explained the tasting notes to the group.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q17">
+      <div class="qmeta"><strong>17</strong> — He recommended brewing it for no more than ______ minute to avoid bitterness.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q18">
+      <div class="qmeta"><strong>18</strong> — The label claimed that this was ______ premium quality product targeted at discerning consumers.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q19">
+      <div class="qmeta"><strong>19</strong> — In that shop I always look for ______ brand with consistent packaging and clear origin details.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="question" data-id="q20">
+      <div class="qmeta"><strong>20</strong> — For some palates, adding sugar to Earl Grey is ______ sacrilege; for others it is habitually done.</div>
+      <div class="choices"></div>
+    </div>
+
+    <div class="controls">
+      <button id="check">Check answers</button>
+      <button id="clear" class="secondary">Clear saved answers</button>
+      <div class="small" id="status">Answers saved locally as you select them.</div>
+    </div>
+
+    <div id="feedback"></div>
+
+    <footer>
+      <div class="small">Designed for C2 level practice in article use. Your selections are stored in your browser only.</div>
+    </footer>
+  </form>
+
+  <script>
+    // Fixed list of options for every question
+    const OPTIONS = ["the","a","an","nothing"];
+    // Correct answers and short explanations keyed by question id
+    const ANSWERS = {
+      q1: {ans:"the", expl:"'the Earl Grey' refers to that specific variety previously mentioned; use 'the' to identify the particular tea."},
+      q2: {ans:"the", expl:"We refer to a specific packet visible in the image; use 'the' to point to that particular item."},
+      q3: {ans:"a", expl:"'a choice' means 'one option among others' — indefinite article for a non-specific singular count noun."},
+      q4: {ans:"a", expl:"'a box' is indefinite because it's one of potentially many boxes; use 'a' with a singular count noun not previously specified."},
+      q5: {ans:"the", expl:"'the bergamot oil' refers to the particular ingredient known in the context; use 'the' when both speaker and listener know the referent."},
+      q6: {ans:"a", expl:"'a lemon slice' indicates any single slice — indefinite article before a singular count noun."},
+      q7: {ans:"the", expl:"'the quintessential British tea' uses 'the' to indicate a class exemplar that is being singled out."},
+      q8: {ans:"a", expl:"'a cup' is any one cup; indefinite article for one unspecific item."},
+      q9: {ans:"an", expl:"'an assortment' — 'assortment' begins with a vowel sound so 'an' is required."},
+      q10: {ans:"the", expl:"'the addition' refers to a specific process just mentioned; 'the' identifies that act."},
+      q11: {ans:"a", expl:"'a scale' — any scale on the packet; indefinite article for singular count noun."},
+      q12: {ans:"the", expl:"'the concept' refers to a specific theoretical notion previously referred to; 'the' defines it."},
+      q13: {ans:"a", expl:"'put a kettle on' is the normal collocation; indefinite article for one kettle in the household context."},
+      q14: {ans:"an", expl:"'an unusual descriptor' — 'unusual' starts with a vowel sound so use 'an'."},
+      q15: {ans:"a", expl:"'a precise temperature' — 'a' introduces the idea of one precise temperature (indefinite in discourse until specified)."},
+      q16: {ans:"a", expl:"'took a sip' is an idiomatic collocation using the indefinite article."},
+      q17: {ans:"a", expl:"'no more than a minute' — the idiomatic expression uses 'a' before time periods of this type."},
+      q18: {ans:"a", expl:"'a premium quality product' — 'a' before a singular count noun describing type or class."},
+      q19: {ans:"the", expl:"'the brand' indicates a particular brand known to the speaker in that context; use 'the' to specify."},
+      q20: {ans:"a", expl:"'a sacrilege' treats 'sacrilege' as a countable instance; 'a' emphasises one act or idea viewed as sacrilegious."}
+    };
+
+    // Utility: shuffle an array (Fisher-Yates)
+    function shuffle(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Render choices for each question, randomising order per page load
+    function renderChoices() {
+      const qs = document.querySelectorAll('.question');
+      qs.forEach(q => {
+        const id = q.dataset.id;
+        const container = q.querySelector('.choices');
+        container.innerHTML = '';
+        const order = shuffle(OPTIONS);
+        order.forEach(opt => {
+          const label = document.createElement('label');
+          label.className = 'choice';
+          label.tabIndex = 0;
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = id;
+          input.value = opt;
+          label.appendChild(input);
+          // visible text: map 'nothing' to an empty visible placeholder
+          label.appendChild(document.createTextNode(opt === 'nothing' ? '(nothing)' : opt));
+          label.addEventListener('click', ()=> selectChoice(label, input));
+          label.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); label.click(); } });
+          container.appendChild(label);
+        });
+        // load saved selection if any
+        const saved = localStorage.getItem('article-'+id);
+        if (saved) {
+          const inputToSelect = container.querySelector('input[value="'+saved+'"]');
+          if (inputToSelect) {
+            inputToSelect.checked = true;
+            inputToSelect.parentElement.classList.add('selected');
+          }
+        }
+      });
+    }
+
+    // handle selection UI and save to localStorage
+    function selectChoice(label, input) {
+      const container = label.parentElement;
+      container.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+      label.classList.add('selected');
+      input.checked = true;
+      // persist
+      const q = input.name;
+      localStorage.setItem('article-'+q, input.value);
+      document.getElementById('status').textContent = 'Progress saved locally.';
+    }
+
+    // Evaluate answers and show feedback
+    function checkAnswers() {
+      const feedback = document.getElementById('feedback');
+      feedback.innerHTML = '';
+      let allAnswered = true;
+      let correctCount = 0;
+      Object.keys(ANSWERS).forEach(qid => {
+        const saved = localStorage.getItem('article-'+qid);
+        if (!saved) allAnswered = false;
+        const expected = ANSWERS[qid].ans;
+        const explanation = ANSWERS[qid].expl;
+        const container = document.querySelector('.question[data-id="'+qid+'"]');
+        const fb = document.createElement('div');
+        fb.className = 'result';
+        if (saved === expected) {
+          fb.classList.add('correct');
+          fb.innerHTML = '<strong>Question '+qid.slice(1)+' — Correct</strong><div class="explain">You chose <strong>'+display(saved)+'</strong>.</div>';
+          correctCount++;
+        } else {
+          fb.classList.add('incorrect');
+          fb.innerHTML = '<strong>Question '+qid.slice(1)+' — Incorrect</strong><div class="explain">Your answer: <strong>'+(saved ? display(saved) : 'no answer')+'</strong> — Correct answer: <strong>'+display(expected)+'</strong>.</div>';
+          const reason = document.createElement('div');
+          reason.className = 'explain';
+          reason.innerHTML = '<em>Why:</em> '+explanation;
+          fb.appendChild(reason);
+        }
+        feedback.appendChild(fb);
+      });
+      const summary = document.createElement('div');
+      summary.className = 'small';
+      summary.style.marginTop = '10px';
+      summary.textContent = 'Score: '+correctCount+' / '+Object.keys(ANSWERS).length + (allAnswered ? '' : ' — not all questions answered.');
+      feedback.prepend(summary);
+      // scroll to feedback
+      feedback.scrollIntoView({behavior:'smooth'});
+    }
+
+    function display(opt) {
+      return opt === 'nothing' ? '(nothing)' : opt;
+    }
+
+    // clear saved answers
+    function clearSaved() {
+      if (!confirm('Clear all saved answers?')) return;
+      Object.keys(ANSWERS).forEach(k => localStorage.removeItem('article-'+k));
+      document.getElementById('status').textContent = 'Saved answers cleared.';
+      renderChoices();
+      document.getElementById('feedback').innerHTML = '';
+    }
+
+    // initialize
+    document.getElementById('check').addEventListener('click', checkAnswers);
+    document.getElementById('clear').addEventListener('click', clearSaved);
+    renderChoices();
+
+    // keyboard support: click label when radio changed programmatically (for restore)
+    document.addEventListener('change', e => {
+      if (e.target && e.target.tagName === 'INPUT' && e.target.type === 'radio') {
+        const label = e.target.parentElement;
+        const container = label.parentElement;
+        container.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+        label.classList.add('selected');
+        localStorage.setItem('article-'+e.target.name, e.target.value);
+      }
+    });
+  </script>
 </body>
 </html>
